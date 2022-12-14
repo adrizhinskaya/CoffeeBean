@@ -1,12 +1,17 @@
 ﻿@model string
-@{ 
+@{
     ViewData["Title"] = "Authentification";
 }
 
 <h1 class="bg-info text-white">Index</h1>
-@Model
+@Model 
 
-@if(User?.Identity?.IsAuthenticated ?? false)
+@if (User?.Identity?.IsAuthenticated ?? false)
             {
                 <a asp-controller="Account" asp-action="Logout" class="btn btn-danger">Logout</a>
+            }
+@if (!User?.Identity?.IsAuthenticated ?? false)
+            {
+                <a asp-controller="Account" asp-action="Login" class="btn btn-info">Sign In</a>
+                <a asp-controller="Account" asp-action="SignUp" class="btn btn-info alert-info">Sign Up</a>
             }

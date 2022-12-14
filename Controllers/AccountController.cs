@@ -25,6 +25,40 @@ namespace CoffeeBean.Controllers
         }
 
         [AllowAnonymous]
+        public ViewResult SignUp() => View();
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> SignUp(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                AppUser appUser = new AppUser
+                {
+                    UserName = user.Name,
+                    Email = user.Email
+                };
+
+                IdentityResult result = await userManager.CreateAsync(appUser, user.Password);
+
+                if (result.Succeeded)
+                {
+                    await signInManager.SignInAsync(appUser, false);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    foreach (IdentityError err in result.Errors)
+                    {
+                        ModelState.AddModelError("", err.Description);
+                    }
+                }
+            }
+
+            return View(user);
+        }
+
+        [AllowAnonymous]
         public IActionResult Login(string returnUrl)
         {
             Login login = new Login();
@@ -48,7 +82,7 @@ namespace CoffeeBean.Controllers
 
                     if(result.Succeeded)
                     {
-                        return Redirect(login.ReturnUrl ?? "/");
+                        return RedirectToAction("Index", "Home");
                     }
                 }
 

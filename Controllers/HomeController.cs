@@ -19,12 +19,16 @@ namespace CoffeeBean.Controllers
             userManager = usrMng;
         }
 
-        [Authorize]
         public async Task<IActionResult> Index()
         {
             AppUser appUser = await userManager.GetUserAsync(HttpContext.User);
-            string mes = $"Hello {appUser.UserName}";
-            return View((object)mes);
+            if(appUser != null)
+            {
+                string mes = $"Hello {appUser.UserName}";
+                return View((object)mes);
+            }
+
+            return View();
         }
     }
 }
