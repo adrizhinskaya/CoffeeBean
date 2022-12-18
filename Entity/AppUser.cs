@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CoffeeBean.Models
 {
     public class AppUser : IdentityUser
     {
+        //public IEnumerable<string> WishListIDs { get; set; }
+        //public IEnumerable<string> BusketIDs { get; set; }
     }
 }
