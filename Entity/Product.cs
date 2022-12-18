@@ -1,4 +1,4 @@
-﻿namespace CoffeeBean.Models
+﻿namespace CoffeeBean.Entity
 {
     public class Product
     {
@@ -9,6 +9,9 @@
         public decimal Price { get; set; }
         public int Count { get; set; }
         public Category Category { get; set; }
+
+        public string AppUserId { get; set; }
+        public AppUser AppUser { get; set; }
     }
 
     public enum Category
