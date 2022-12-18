@@ -1,7 +1,14 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using CoffeeBean.Entity;
+using CoffeeBean.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace CoffeeBean.Models
+namespace CoffeeBean.DataAccess
 {
     public class AppIdentityDbContext : IdentityDbContext<AppUser>
     {
@@ -16,7 +23,7 @@ namespace CoffeeBean.Models
 
         //    var appUserIDsValueComparer = new ValueComparer<IEnumerable<string>>(
         //    (x, y) => x.SequenceEqual(y, StringComparer.OrdinalIgnoreCase),// переопределяем Equals
-        //     x => x.Aggregate(0,(a, v) => HashCode.Combine(a,v.GetHashCode(StringComparison.OrdinalIgnoreCase))),// переопределяем GetHashCode
+        //     x => x.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode(StringComparison.OrdinalIgnoreCase))),// переопределяем GetHashCode
         //     x => x.ToArray());// специальное выражение для создания снепшота данных
 
         //    modelBuilder

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace CoffeeBean.Models
+namespace CoffeeBean.Entity
 {
     public class AppUser : IdentityUser
     {

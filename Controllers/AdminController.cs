@@ -1,4 +1,5 @@
-﻿using CoffeeBean.Models;
+﻿using CoffeeBean.Entity;
+using CoffeeBean.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -18,6 +19,11 @@ namespace CoffeeBean.Controllers
         public IActionResult Index()
         {
             return View(userManager.Users);
+        }
+
+        public IActionResult Products()
+        {
+            return View();
         }
 
         public ViewResult Create() => View();
