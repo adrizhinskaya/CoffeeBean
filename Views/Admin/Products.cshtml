@@ -1,0 +1,41 @@
+﻿@model IEnumerable<CoffeeBean.Entity.Product>
+@{
+    ViewData["Title"] = "Products Page";
+}
+
+<h1 class="bg-info text-white">All Products</h1>
+<a asp-action="CreateProduct" class="btn btn-secondary">Create a new Product</a>
+
+<table class="table table-sm table-bordered">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Size</th>
+        <th>Price</th>
+        <th>Count</th>
+        <th>CategoryId</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+    @foreach (var prod in Model)
+    {
+        <tr>
+            <td>@prod.Id</td>
+            <td>@prod.Name</td>
+            <td>@prod.Description</td>
+            <td>@prod.Size</td>
+            <td>@prod.Price</td>
+            <td>@prod.Count</td>
+            <td>@prod.CategoryId</td>
+            <td>
+                <a class="btn btn-sm btn-primary" asp-action="UpdateProduct" asp-route-id="@prod.Id">Update</a>
+            </td>
+            <td>
+                <form asp-action="DeleteProduct" asp-route-id="@prod.Id" method="post">
+                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>

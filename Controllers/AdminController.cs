@@ -1,7 +1,10 @@
-﻿using CoffeeBean.Entity;
+﻿using CoffeeBean.DataAccess;
+using CoffeeBean.Entity;
 using CoffeeBean.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CoffeeBean.Controllers
@@ -10,20 +13,67 @@ namespace CoffeeBean.Controllers
     {
         private UserManager<AppUser> userManager;
         private IPasswordHasher<AppUser> passwordHasher; // получаем хэшированное значение пароля пользователя
-        public AdminController(UserManager<AppUser> usrMng, IPasswordHasher<AppUser> pwHash)
+        private readonly AppIdentityDbContext dbcontext;
+        public AdminController(UserManager<AppUser> usrMng, IPasswordHasher<AppUser> pwHash, AppIdentityDbContext context)
         {
             userManager = usrMng;
             passwordHasher = pwHash;
+            dbcontext = context;
+        }
+        #region CategoriesManaging
+        public IActionResult Categories()
+        {
+            return View(dbcontext.Categories);
         }
 
+        public ViewResult CreateCategory() => View();
+
+        [HttpPost]
+        public async Task<IActionResult> CreateCategory(Category category)
+        {
+            await dbcontext.Categories.AddAsync(category);
+            await dbcontext.SaveChangesAsync();
+
+            return RedirectToAction("Categories");
+        }
+
+        public async Task<IActionResult> UpdateCategory(string id)
+        {
+            Category category = await dbcontext.Categories.Where(c => c.Id == id).FirstOrDefaultAsync();
+            return View(category);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateCategory(Category category)
+        {
+            dbcontext.Update(category);
+            await dbcontext.SaveChangesAsync();
+
+            return RedirectToAction("Categories");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteCategory(string id)
+        {
+            var category = new Category() { Id = id };
+            dbcontext.Remove(category);
+            await dbcontext.SaveChangesAsync();
+
+            return RedirectToAction("Categories");
+        }
+        #endregion
+
+        #region ProductManaging
+        public IActionResult Products()
+        {
+            return View(dbcontext.Products);
+        }
+        #endregion
+
+        #region UserManaging
         public IActionResult Index()
         {
             return View(userManager.Users);
-        }
-
-        public IActionResult Products()
-        {
-            return View();
         }
 
         public ViewResult Create() => View();
@@ -141,7 +191,7 @@ namespace CoffeeBean.Controllers
 
             return View("Index", userManager.Users);
         }
-
+        #endregion
         private void Errors(IdentityResult result)
         {
             foreach(IdentityError err in result.Errors)

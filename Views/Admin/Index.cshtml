@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AppUser>
+﻿@model IEnumerable<CoffeeBean.Entity.AppUser>
 @{
     ViewData["Title"] = "Users Page";
 }
@@ -14,7 +14,7 @@
         <th>Update</th>
         <th>Delete</th>
     </tr>
-    @foreach(AppUser appUser in Model)
+    @foreach(var appUser in Model)
             {
                 <tr>
                     <td>@appUser.Id</td>
