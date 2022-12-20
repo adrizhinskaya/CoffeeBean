@@ -5,7 +5,6 @@ namespace CoffeeBean.Entity
 {
     public class AppUser : IdentityUser
     {
-        public ICollection<Product> WishList { get; set; }
-        //public IEnumerable<string> BusketIDs { get; set; }
+        public IEnumerable<Product> WishList { get; set; }
     }
 }
