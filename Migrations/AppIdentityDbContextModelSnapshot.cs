@@ -98,7 +98,7 @@ namespace CoffeeBean.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CategoryId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Count")
                         .HasColumnType("int");
@@ -118,6 +118,8 @@ namespace CoffeeBean.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
                 });
@@ -240,7 +242,13 @@ namespace CoffeeBean.Migrations
                         .WithMany("WishList")
                         .HasForeignKey("AppUserId");
 
+                    b.HasOne("CoffeeBean.Entity.Category", "Cathegory")
+                        .WithMany()
+                        .HasForeignKey("CategoryId");
+
                     b.Navigation("AppUser");
+
+                    b.Navigation("Cathegory");
                 });
 
             modelBuilder.Entity("CoffeeBean.Entity.AppUser", b =>

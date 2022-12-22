@@ -12,6 +12,7 @@ namespace CoffeeBean.Entity
         public decimal Price { get; set; }
         public int Count { get; set; }
 
+        public Category Cathegory { get; set; }
         public string CategoryId { get; set; }
 
         public string AppUserId { get; set; }

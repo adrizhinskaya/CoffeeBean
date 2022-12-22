@@ -14,7 +14,7 @@
         <th>Size</th>
         <th>Price</th>
         <th>Count</th>
-        <th>CategoryId</th>
+        <th>Category</th>
         <th>Update</th>
         <th>Delete</th>
     </tr>
@@ -27,7 +27,7 @@
             <td>@prod.Size</td>
             <td>@prod.Price</td>
             <td>@prod.Count</td>
-            <td>@prod.CategoryId</td>
+            <td>@prod.Cathegory.Name</td>
             <td>
                 <a class="btn btn-sm btn-primary" asp-action="UpdateProduct" asp-route-id="@prod.Id">Update</a>
             </td>

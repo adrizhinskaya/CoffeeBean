@@ -4,10 +4,10 @@
 }
 
 <h1 class="bg-info text-white">Update User</h1>
-<a asp-action="Index" class="btn btn-secondary">Back</a>
+<a asp-action="Users" class="btn btn-secondary">Back</a>
 <div asp-validation-summary="All" class="text-danger"></div>
 
-<form asp-action="Update" method="post">
+<form asp-action="UpdateUser" method="post">
     <div class="form-group">
         <label asp-for="Id"></label>
         <input asp-for="Id" class="form-control" disabled />

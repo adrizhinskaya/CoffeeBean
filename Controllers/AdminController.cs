@@ -3,7 +3,10 @@ using CoffeeBean.Entity;
 using CoffeeBean.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -66,20 +69,66 @@ namespace CoffeeBean.Controllers
         #region ProductManaging
         public IActionResult Products()
         {
-            return View(dbcontext.Products);
+            return View(dbcontext.Products.Include(p => p.Cathegory));
+        }
+        public ViewResult CreateProduct()
+        {
+            List<SelectListItem> categories = new List<SelectListItem>();
+            categories = dbcontext.Categories.Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
+            ViewBag.Category = categories;
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateProduct(Product product)
+        {
+            await dbcontext.Products.AddAsync(product);
+            await dbcontext.SaveChangesAsync();
+
+            return RedirectToAction("Products");
+        }
+        public async Task<IActionResult> UpdateProduct(string id)
+        {
+            Product prod = await dbcontext.Products.Where(p => p.Id == id).FirstOrDefaultAsync();
+
+            List<SelectListItem> categories = new List<SelectListItem>();
+            categories = dbcontext.Categories.Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
+            ViewBag.Category = categories;
+
+            return View(prod);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateProduct(Product product)
+        {
+            dbcontext.Products.Update(product);
+            await dbcontext.SaveChangesAsync();
+
+            return RedirectToAction("Products");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteProduct(string id)
+        {
+            var prod = new Product() { Id = id };
+            dbcontext.Remove(prod);
+            await dbcontext.SaveChangesAsync();
+
+            return RedirectToAction("Products");
         }
         #endregion
 
         #region UserManaging
-        public IActionResult Index()
+        public IActionResult Users()
         {
             return View(userManager.Users);
         }
 
-        public ViewResult Create() => View();
+        public ViewResult CreateUser() => View();
 
         [HttpPost]
-        public async Task<IActionResult> Create(User user)
+        public async Task<IActionResult> CreateUser(User user)
         {
             if(ModelState.IsValid)
             {
@@ -93,7 +142,7 @@ namespace CoffeeBean.Controllers
 
                 if(result.Succeeded)
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Users");
                 }
                 else
                 {
@@ -107,7 +156,7 @@ namespace CoffeeBean.Controllers
             return View(user);
         }
 
-        public async Task<IActionResult> Update(string id)
+        public async Task<IActionResult> UpdateUser(string id)
         {
             AppUser appUser = await userManager.FindByIdAsync(id);
 
@@ -117,12 +166,12 @@ namespace CoffeeBean.Controllers
             }
             else
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Users");
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(string id, string email, string password)
+        public async Task<IActionResult> UpdateUser(string id, string email, string password)
         {
             AppUser appUser = await userManager.FindByIdAsync(id);
 
@@ -151,7 +200,7 @@ namespace CoffeeBean.Controllers
                     IdentityResult result = await userManager.UpdateAsync(appUser);
                     if(result.Succeeded)
                     {
-                        return RedirectToAction("Index");
+                        return RedirectToAction("Users");
                     }
                     else
                     {
@@ -168,7 +217,7 @@ namespace CoffeeBean.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> DeleteUser(string id)
         {
             AppUser appUser = await userManager.FindByIdAsync(id);
 
@@ -177,7 +226,7 @@ namespace CoffeeBean.Controllers
                 IdentityResult result = await userManager.DeleteAsync(appUser);
                 if(result.Succeeded)
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Users");
                 }
                 else
                 {
@@ -189,9 +238,9 @@ namespace CoffeeBean.Controllers
                 ModelState.AddModelError("", "User not found");
             }
 
-            return View("Index", userManager.Users);
+            return View("Users", userManager.Users);
         }
-        #endregion
+
         private void Errors(IdentityResult result)
         {
             foreach(IdentityError err in result.Errors)
@@ -199,5 +248,6 @@ namespace CoffeeBean.Controllers
                 ModelState.AddModelError("", err.Description);
             }
         }
+        #endregion
     }
 }
