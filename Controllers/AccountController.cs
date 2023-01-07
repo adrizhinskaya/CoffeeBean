@@ -17,6 +17,10 @@ namespace CoffeeBean.Controllers
             userManager = usrMng;
             signInManager = sgnInMng;
         }
+        public IActionResult Index()
+        {
+            return View();
+        }
 
         [AllowAnonymous]
         public ViewResult SignUp() => View();
@@ -38,7 +42,6 @@ namespace CoffeeBean.Controllers
                 if (result.Succeeded)
                 {
                     await signInManager.SignInAsync(appUser, false);
-                    await userManager.AddToRoleAsync(appUser, "User");
                     return RedirectToAction("Index", "Home");
                 }
                 else

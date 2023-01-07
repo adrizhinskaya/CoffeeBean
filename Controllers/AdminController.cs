@@ -1,7 +1,6 @@
 ﻿using CoffeeBean.DataAccess;
 using CoffeeBean.Entity;
 using CoffeeBean.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -13,7 +12,6 @@ using System.Threading.Tasks;
 
 namespace CoffeeBean.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private UserManager<AppUser> userManager;
@@ -144,7 +142,6 @@ namespace CoffeeBean.Controllers
 
                 if(result.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(appUser, "User");
                     return RedirectToAction("Users");
                 }
                 else
@@ -217,32 +214,6 @@ namespace CoffeeBean.Controllers
             }
 
             return View(appUser);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> BanUser(string id)
-        {
-            AppUser appUser = await userManager.FindByIdAsync(id);
-
-            if (appUser != null)
-            {
-                await userManager.RemoveFromRoleAsync(appUser, "User");
-                IdentityResult result = await userManager.AddToRoleAsync(appUser, "Banned");
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Users");
-                }
-                else
-                {
-                    Errors(result);
-                }
-            }
-            else
-            {
-                ModelState.AddModelError("", "User not found");
-            }
-
-            return View("Users", userManager.Users);
         }
 
         [HttpPost]
