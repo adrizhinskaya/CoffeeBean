@@ -16,17 +16,9 @@ namespace CoffeeBean.Controllers
             this.context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            //return View(context.Products);
-            AppUser appUser = await userManager.GetUserAsync(HttpContext.User);
-            if (appUser != null)
-            {
-                string mes = $"Hello {appUser.UserName}";
-                return View((object)mes);
-            }
-
-            return View();
+            return View(context.Products);
         }
     }
 }
