@@ -11,8 +11,7 @@ namespace CoffeeBean.Entity
         public string Size { get; set; }
         public decimal Price { get; set; }
         public int Count { get; set; }
-        public byte[] ImageData { get; set; }
-        public string ImageMimeType { get; set; }
+        public byte[] Image { get; set; }
 
         public Category Cathegory { get; set; }
         public string CategoryId { get; set; }

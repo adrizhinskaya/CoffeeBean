@@ -1,17 +1,22 @@
-﻿@model string
+﻿@model IEnumerable<CoffeeBean.Entity.Product>
 @{
     ViewData["Title"] = "Authentification";
 }
 
 <h1 class="bg-info text-white">Index</h1>
-@Model 
+<h2>Hello @User!.Identity.Name</h2>
 
-@if (User?.Identity?.IsAuthenticated ?? false)
-            {
-                <a asp-controller="Account" asp-action="Logout" class="btn btn-danger">Logout</a>
-            }
+@if (User!.IsInRole("Admin"))
+{
+    <a asp-controller="Account" asp-action="Logout" class="btn btn-danger">Logout</a>
+}
+
+@if (User!.IsInRole("User"))
+{
+    <a asp-controller="Account" asp-action="Logout" class="btn btn-danger">Logout</a>
+}
 @if (!User?.Identity?.IsAuthenticated ?? false)
-            {
-                <a asp-controller="Account" asp-action="Login" class="btn btn-info">Sign In</a>
-                <a asp-controller="Account" asp-action="SignUp" class="btn btn-info alert-info">Sign Up</a>
-            }
+{
+    <a asp-controller="Account" asp-action="Login" class="btn btn-info">Sign In</a>
+    <a asp-controller="Account" asp-action="SignUp" class="btn btn-info alert-info">Sign Up</a>
+}

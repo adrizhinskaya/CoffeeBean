@@ -1,17 +1,20 @@
 ﻿using CoffeeBean.DataAccess;
 using CoffeeBean.Entity;
 using CoffeeBean.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace CoffeeBean.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private UserManager<AppUser> userManager;
@@ -81,8 +84,18 @@ namespace CoffeeBean.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateProduct(Product product)
+        public async Task<IActionResult> CreateProduct(Product product, IFormFile uploadedFile)
         {
+            if (uploadedFile != null)
+            {
+                byte[] imageData = null;
+                using (var binaryReader = new BinaryReader(uploadedFile.OpenReadStream()))
+                {
+                    imageData = binaryReader.ReadBytes((int)uploadedFile.Length);
+                }
+                product.Image = imageData;
+            }
+
             await dbcontext.Products.AddAsync(product);
             await dbcontext.SaveChangesAsync();
 
@@ -100,8 +113,18 @@ namespace CoffeeBean.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateProduct(Product product)
+        public async Task<IActionResult> UpdateProduct(Product product, IFormFile uploadedFile)
         {
+            if (uploadedFile != null)
+            {
+                byte[] imageData = null;
+                using (var binaryReader = new BinaryReader(uploadedFile.OpenReadStream()))
+                {
+                    imageData = binaryReader.ReadBytes((int)uploadedFile.Length);
+                }
+                product.Image = imageData;
+            }
+
             dbcontext.Products.Update(product);
             await dbcontext.SaveChangesAsync();
 
