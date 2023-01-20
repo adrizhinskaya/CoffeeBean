@@ -29,9 +29,13 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Products">Products</a>
                             </li>
+                            <li class="nav-item offset-md-8">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Logout">Log out</a>
+                            </li>
                         </ul>
                     </div>
                 }
+
                 @if (User!.IsInRole("User"))
                 {
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CoffeeBean</a>
@@ -44,10 +48,40 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                             </li>
+                            <li class="nav-item offset-md-8">
+                                <a class="nav-link text-dark" asp-controller="" asp-action="">Personal Page</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Logout">Log Out</a>
+                            </li>
                         </ul>
                     </div>
                 }
 
+                @if (!User?.Identity?.IsAuthenticated ?? false)
+                {
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CoffeeBean</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Main</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="ProductsReview" asp-action="Index">Shop</a>
+                            </li>
+                            <li class="nav-item offset-md-8">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Sign In</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="SignUp">Sign Up</a>
+                            </li>
+                        </ul>
+                    </div>
+                }
             </div>
         </nav>
     </header>

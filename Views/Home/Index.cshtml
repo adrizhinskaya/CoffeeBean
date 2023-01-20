@@ -8,15 +8,18 @@
 
 @if (User!.IsInRole("Admin"))
 {
-    <a asp-controller="Account" asp-action="Logout" class="btn btn-danger">Logout</a>
 }
 
 @if (User!.IsInRole("User"))
 {
-    <a asp-controller="Account" asp-action="Logout" class="btn btn-danger">Logout</a>
 }
 @if (!User?.Identity?.IsAuthenticated ?? false)
 {
-    <a asp-controller="Account" asp-action="Login" class="btn btn-info">Sign In</a>
-    <a asp-controller="Account" asp-action="SignUp" class="btn btn-info alert-info">Sign Up</a>
+    <p>Категории</p>
+    <div>
+        @foreach (var category in ViewBag.Category)
+        {
+        <a class="btn btn-sm btn-primary" asp-controller="ProductsReview" asp-action="Index" asp-route-id="@category.Value">@category.Text</a>
+        }
+    </div>
 }

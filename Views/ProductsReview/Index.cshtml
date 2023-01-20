@@ -1,0 +1,27 @@
+﻿@model IEnumerable<CoffeeBean.Entity.Product>
+@{
+    ViewData["Title"] = "Category Page";
+}
+<link rel="stylesheet" href="~/css/productCells.css" />
+
+<div class="container">
+    @foreach (var prod in @Model)
+    {
+        <a class="btn btn-sm btn-primary" asp-controller="ProductsReview" asp-action="Product" asp-route-id="@prod.Id">
+            <div class="item">
+                <img src="data:image/jpeg;base64,@(Convert.ToBase64String(prod.Image))" />
+
+                <div class="textPart">
+                    @prod.Name
+                    @prod.Price
+                </div>
+
+                <div class="wishPart">
+                    <a href="https://itvdn.com/ru/specialities/aspnet-core"> @*это кнопка сердечка wishList. Доработать!*@
+                        <img class="wishItem" src="~/lib/bootstrap/heart_icon.png" alt="">
+                    </a>
+                </div>
+            </div>
+        </a>
+    }
+</div>
