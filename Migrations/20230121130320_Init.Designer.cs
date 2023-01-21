@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoffeeBean.Migrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20230112121655_Image")]
-    partial class Image
+    [Migration("20230121130320_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

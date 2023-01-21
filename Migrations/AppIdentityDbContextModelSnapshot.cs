@@ -77,6 +77,9 @@ namespace CoffeeBean.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<byte[]>("CategoryImg")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 

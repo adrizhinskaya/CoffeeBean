@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoffeeBean.Migrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20221222194915_Relations")]
-    partial class Relations
+    [Migration("20230121130413_CategoryImg")]
+    partial class CategoryImg
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -79,6 +79,9 @@ namespace CoffeeBean.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<byte[]>("CategoryImg")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -107,6 +110,9 @@ namespace CoffeeBean.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");

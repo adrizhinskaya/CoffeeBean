@@ -3,13 +3,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CoffeeBean.Migrations
 {
-    public partial class Image : Migration
+    public partial class CategoryImg : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<byte[]>(
-                name: "Image",
-                table: "Products",
+                name: "CategoryImg",
+                table: "Categories",
                 type: "varbinary(max)",
                 nullable: true);
         }
@@ -17,8 +17,8 @@ namespace CoffeeBean.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Image",
-                table: "Products");
+                name: "CategoryImg",
+                table: "Categories");
         }
     }
 }

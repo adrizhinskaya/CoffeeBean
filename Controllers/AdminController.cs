@@ -35,8 +35,17 @@ namespace CoffeeBean.Controllers
         public ViewResult CreateCategory() => View();
 
         [HttpPost]
-        public async Task<IActionResult> CreateCategory(Category category)
+        public async Task<IActionResult> CreateCategory(Category category, IFormFile uploadedFile)
         {
+            if (uploadedFile != null)
+            {
+                byte[] imageData = null;
+                using (var binaryReader = new BinaryReader(uploadedFile.OpenReadStream()))
+                {
+                    imageData = binaryReader.ReadBytes((int)uploadedFile.Length);
+                }
+                //category.Image = imageData;
+            }
             await dbcontext.Categories.AddAsync(category);
             await dbcontext.SaveChangesAsync();
 
@@ -50,8 +59,17 @@ namespace CoffeeBean.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateCategory(Category category)
+        public async Task<IActionResult> UpdateCategory(Category category, IFormFile uploadedFile)
         {
+            if (uploadedFile != null)
+            {
+                byte[] imageData = null;
+                using (var binaryReader = new BinaryReader(uploadedFile.OpenReadStream()))
+                {
+                    imageData = binaryReader.ReadBytes((int)uploadedFile.Length);
+                }
+                //category.Image = imageData;
+            }
             dbcontext.Update(category);
             await dbcontext.SaveChangesAsync();
 

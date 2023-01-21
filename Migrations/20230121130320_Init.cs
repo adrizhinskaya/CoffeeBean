@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CoffeeBean.Migrations
 {
-    public partial class Relations : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -139,6 +139,7 @@ namespace CoffeeBean.Migrations
                     Size = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Count = table.Column<int>(type: "int", nullable: false),
+                    Image = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     CategoryId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
@@ -156,7 +157,7 @@ namespace CoffeeBean.Migrations
                         column: x => x.AppUserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
