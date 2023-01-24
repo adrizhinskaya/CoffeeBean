@@ -1,10 +1,42 @@
-﻿@model IEnumerable<CoffeeBean.Entity.Product>
+﻿@model IEnumerable<CoffeeBean.Entity.Category>
 @{
     ViewData["Title"] = "Authentification";
 }
 
-<h1 class="bg-info text-white">Index</h1>
-<h2>Hello @User!.Identity.Name</h2>
+<style>
+    .containerPart {
+        width: 108%;
+        display: inline-block;
+    }
+
+    .itemPart {
+        padding: 2.09%;
+        width: 80%;
+        position: relative;
+        margin: auto;
+    }
+
+    .inscriptionPart {
+        width: 88.1%;
+        position: absolute;
+        top: 50%;
+        left: 46.65%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        font-family: Aboreto, Arial, Helvetica, sans-serif;
+        font-size: 440%;
+    }
+
+    img {
+        width: 93%;
+    }
+
+    a {
+        text-decoration: none;
+    }
+</style>
 
 @if (User!.IsInRole("Admin"))
 {
@@ -15,11 +47,16 @@
 }
 @if (!User?.Identity?.IsAuthenticated ?? false)
 {
-    <p>Категории</p>
-    <div>
-        @foreach (var category in ViewBag.Category)
+    <div class="containerPart">
+        @foreach (var category in Model)
         {
-        <a class="btn btn-sm btn-primary" asp-controller="ProductsReview" asp-action="Index" asp-route-id="@category.Value">@category.Text</a>
+            <a asp-controller="ProductsReview" asp-action="Index" asp-route-id="@category.Id">
+                <div class="itemPart">
+                    <img src="data:image/jpeg;base64,@(Convert.ToBase64String(category.CategoryImg))" alt="">
+                    <div class="inscriptionPart">@category.Name</div>
+                </div>
+            </a>
         }
+    
     </div>
 }

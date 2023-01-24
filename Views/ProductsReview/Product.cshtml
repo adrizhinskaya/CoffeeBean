@@ -2,9 +2,58 @@
 @{
     ViewData["Title"] = "Category Page";
 }
+<style>
+    .containerPart {
+        justify-content: center;
+        margin: 50px auto;
+        display: flex;
+    }
 
-   <h3>@Model.Name</h3>
-    <p>@Model.Price</p>
-    <p>@Model.Size</p>
-    <p>@Model.Count</p>
-    <p>@Model.Description</p>
+    .textPart {
+        width: 45%;
+        padding-left: 5%;
+        font-size: 98%;
+        color: #777777;
+    }
+
+    img {
+        width: 30%;
+    }
+
+    button {
+        background-color: #6bd69b;
+        border-radius: 5%;
+        border: 5px solid #6bd69b;
+        text-decoration: none;
+    }
+
+    a {
+        color: white;
+        text-decoration: none;
+    }
+</style>
+
+<div class="containerPart">
+    <img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Image))" />
+    <div class="textPart">
+        <div>
+            <h2 style="margin: 0px">@Model.Name</h2>
+            <p>@Model.Price$</p>
+        </div>
+        <div>
+            <p>@Model.Description</p>
+            <p>Size: @Model.Size</p>
+            @if (Model.Count > 0)
+            {
+                <p style="color: #6bd69b;">In stock</p>
+                <div>
+                    <button><a href="https://bubblz.by/">Add to cart</a></button> @*это корзина!!!!!!!!!!!!!!!!!!*@
+                </div>
+            }
+            else
+            {
+                <p style="color: #dd4f23;">Not available</p>
+            }
+        </div>
+    </div>
+</div>

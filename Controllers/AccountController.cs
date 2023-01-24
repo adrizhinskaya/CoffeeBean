@@ -1,8 +1,11 @@
-﻿using CoffeeBean.Entity;
+﻿using CoffeeBean.DataAccess;
+using CoffeeBean.Entity;
 using CoffeeBean.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CoffeeBean.Controllers
@@ -11,15 +14,13 @@ namespace CoffeeBean.Controllers
     {
         private UserManager<AppUser> userManager;
         private SignInManager<AppUser> signInManager;
+        private readonly AppIdentityDbContext dbcontext;
 
-        public AccountController(UserManager<AppUser> usrMng, SignInManager<AppUser> sgnInMng)
+        public AccountController(UserManager<AppUser> usrMng, SignInManager<AppUser> sgnInMng, AppIdentityDbContext context)
         {
             userManager = usrMng;
             signInManager = sgnInMng;
-        }
-        public IActionResult Index()
-        {
-            return View();
+            dbcontext = context;
         }
 
         [AllowAnonymous]
@@ -95,5 +96,12 @@ namespace CoffeeBean.Controllers
             await signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
+        //[AllowAnonymous]
+        //public async Task<IActionResult> AddToCart(string productId)
+        //{
+        //    Product prod = await dbcontext.Products.Where(p => p.Id == productId).FirstOrDefaultAsync();
+        //    var appuser = HttpContext.User.Identity;
+        //}
     }
 }

@@ -44,7 +44,7 @@ namespace CoffeeBean.Controllers
                 {
                     imageData = binaryReader.ReadBytes((int)uploadedFile.Length);
                 }
-                //category.Image = imageData;
+                category.CategoryImg = imageData;
             }
             await dbcontext.Categories.AddAsync(category);
             await dbcontext.SaveChangesAsync();
@@ -68,9 +68,9 @@ namespace CoffeeBean.Controllers
                 {
                     imageData = binaryReader.ReadBytes((int)uploadedFile.Length);
                 }
-                //category.Image = imageData;
+                category.CategoryImg = imageData;
             }
-            dbcontext.Update(category);
+            dbcontext.Categories.Update(category);
             await dbcontext.SaveChangesAsync();
 
             return RedirectToAction("Categories");
