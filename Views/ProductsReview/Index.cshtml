@@ -66,8 +66,8 @@
                 </div>
 
                 <div class="wishPart">
-                    <a href="https://itvdn.com/ru/specialities/aspnet-core"> @*это кнопка сердечка wishList. Доработать!*@
-                        <img class="wishItem" src="~/lib/bootstrap/heart_icon.png" alt="">
+                    <a asp-controller="Account" asp-action="Cart" asp-route-id="@prod.Id">
+                        <img class="wishItem" src="~/cart_icon.png" alt="Cart Icon">
                     </a>
                 </div>
             </div>

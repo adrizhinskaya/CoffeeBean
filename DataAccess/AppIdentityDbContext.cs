@@ -34,6 +34,11 @@ namespace CoffeeBean.DataAccess
 
             modelBuilder.Entity<IdentityUserToken<string>>()
                 .HasKey(x => new { x.UserId, x.LoginProvider, x.Name });
+
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.AppUser)
+                .WithMany(a => a.Cart)
+                .HasForeignKey(p => p.AppUserId);
         }
     }
 }

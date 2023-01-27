@@ -245,7 +245,7 @@ namespace CoffeeBean.Migrations
             modelBuilder.Entity("CoffeeBean.Entity.Product", b =>
                 {
                     b.HasOne("CoffeeBean.Entity.AppUser", "AppUser")
-                        .WithMany("WishList")
+                        .WithMany("Cart")
                         .HasForeignKey("AppUserId");
 
                     b.HasOne("CoffeeBean.Entity.Category", "Cathegory")
@@ -259,7 +259,7 @@ namespace CoffeeBean.Migrations
 
             modelBuilder.Entity("CoffeeBean.Entity.AppUser", b =>
                 {
-                    b.Navigation("WishList");
+                    b.Navigation("Cart");
                 });
 #pragma warning restore 612, 618
         }

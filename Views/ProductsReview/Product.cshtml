@@ -47,7 +47,7 @@
             {
                 <p style="color: #6bd69b;">In stock</p>
                 <div>
-                    <button><a href="https://bubblz.by/">Add to cart</a></button> @*это корзина!!!!!!!!!!!!!!!!!!*@
+                    <a class="btn btn-sm btn-primary" asp-controller="Account" asp-action="AddToCart" asp-route-id="@Model.Id">Add to cart</a> @*это корзина!!!!!!!!!!!!!!!!!!*@
                 </div>
             }
             else

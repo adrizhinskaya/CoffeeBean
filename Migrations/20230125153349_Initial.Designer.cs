@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoffeeBean.Migrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20230121130413_CategoryImg")]
-    partial class CategoryImg
+    [Migration("20230125153349_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -247,7 +247,7 @@ namespace CoffeeBean.Migrations
             modelBuilder.Entity("CoffeeBean.Entity.Product", b =>
                 {
                     b.HasOne("CoffeeBean.Entity.AppUser", "AppUser")
-                        .WithMany("WishList")
+                        .WithMany("Cart")
                         .HasForeignKey("AppUserId");
 
                     b.HasOne("CoffeeBean.Entity.Category", "Cathegory")
@@ -261,7 +261,7 @@ namespace CoffeeBean.Migrations
 
             modelBuilder.Entity("CoffeeBean.Entity.AppUser", b =>
                 {
-                    b.Navigation("WishList");
+                    b.Navigation("Cart");
                 });
 #pragma warning restore 612, 618
         }
