@@ -33,7 +33,7 @@
     }
 </style>
 
-@if (Model == null)
+@if (Model == null || Model.Count() == 0)
 {
     <h2>The cart is empty</h2>
 }

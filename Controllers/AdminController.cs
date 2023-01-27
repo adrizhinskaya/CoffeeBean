@@ -258,6 +258,58 @@ namespace CoffeeBean.Controllers
         }
 
         [HttpPost]
+        public async Task<IActionResult> BanUser(string id)
+        {
+            AppUser appUser = await userManager.FindByIdAsync(id);
+
+            if (appUser != null)
+            {
+                IdentityResult result1 = await userManager.RemoveFromRoleAsync(appUser, "User");
+                IdentityResult result = await userManager.AddToRoleAsync(appUser, "Banned");
+                if (result.Succeeded && result1.Succeeded)
+                {
+                    return RedirectToAction("Users");
+                }
+                else
+                {
+                    Errors(result);
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "User not found");
+            }
+
+            return View("Users", userManager.Users);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UnblockUser(string id)
+        {
+            AppUser appUser = await userManager.FindByIdAsync(id);
+
+            if (appUser != null)
+            {
+                IdentityResult result1 = await userManager.RemoveFromRoleAsync(appUser, "Banned");
+                IdentityResult result = await userManager.AddToRoleAsync(appUser, "User");
+                if (result.Succeeded && result1.Succeeded)
+                {
+                    return RedirectToAction("Users");
+                }
+                else
+                {
+                    Errors(result);
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "User not found");
+            }
+
+            return View("Users", userManager.Users);
+        }
+
+        [HttpPost]
         public async Task<IActionResult> DeleteUser(string id)
         {
             AppUser appUser = await userManager.FindByIdAsync(id);

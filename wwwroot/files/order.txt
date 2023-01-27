@@ -1,0 +1,5 @@
+The number of products: 2
+Tea "Matcha" - 17,89$
+Cup - 6,77$
+
+Total amount: 24,66$

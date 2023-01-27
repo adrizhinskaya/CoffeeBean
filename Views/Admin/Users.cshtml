@@ -12,6 +12,8 @@
         <th>Name</th>
         <th>Email</th>
         <th>Update</th>
+        <th>Ban</th>
+        <th>Unblock</th>
         <th>Delete</th>
     </tr>
     @foreach(var appUser in Model)
@@ -22,6 +24,16 @@
                     <td>@appUser.Email</td>
                     <td>
                         <a class="btn btn-sm btn-primary" asp-action="UpdateUser" asp-route-id="@appUser.Id">Update</a>
+                    </td>
+                    <td>
+                        <form asp-action="BanUser" asp-route-id="@appUser.Id" method="post">
+                            <button type="submit" class="btn btn-sm btn-danger">Ban</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form asp-action="UnblockUser" asp-route-id="@appUser.Id" method="post">
+                            <button type="submit" class="btn btn-sm btn-primary">Unblock</button>
+                        </form>
                     </td>
                     <td>
                         <form asp-action="DeleteUser" asp-route-id="@appUser.Id" method="post">
