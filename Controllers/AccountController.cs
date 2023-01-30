@@ -35,7 +35,8 @@ namespace CoffeeBean.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> SignUp(User user)
         {
-            if (ModelState.IsValid)
+            AppUser checkUser = await userManager.FindByEmailAsync(user.Email);
+            if (ModelState.IsValid && checkUser == null)
             {
                 AppUser appUser = new AppUser
                 {
@@ -59,7 +60,6 @@ namespace CoffeeBean.Controllers
                     }
                 }
             }
-
             return View(user);
         }
 

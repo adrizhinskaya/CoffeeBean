@@ -29,6 +29,8 @@ namespace CoffeeBean.DataAccess
             modelBuilder.Entity<IdentityUserToken<string>>()
                 .HasKey(x => new { x.UserId, x.LoginProvider, x.Name });
 
+            modelBuilder.Entity<AppUser>().HasIndex(u => u.Email).IsUnique();
+
             modelBuilder.Entity<Product>()
                 .HasOne(p => p.AppUser)
                 .WithMany(a => a.Cart)
