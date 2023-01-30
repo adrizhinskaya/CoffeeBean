@@ -102,7 +102,6 @@ namespace CoffeeBean.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-
         [Authorize(Roles = "User")]
         public async Task<IActionResult> Cart(string id)
         {

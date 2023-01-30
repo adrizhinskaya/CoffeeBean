@@ -1,13 +1,7 @@
 ﻿using CoffeeBean.Entity;
-using CoffeeBean.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace CoffeeBean.DataAccess
 {
@@ -39,6 +33,8 @@ namespace CoffeeBean.DataAccess
                 .HasOne(p => p.AppUser)
                 .WithMany(a => a.Cart)
                 .HasForeignKey(p => p.AppUserId);
+
+
         }
     }
 }

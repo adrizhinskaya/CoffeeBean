@@ -25,6 +25,7 @@ namespace CoffeeBean
                     var userManager = services.GetRequiredService<UserManager<AppUser>>();
                     var rolesManager = services.GetRequiredService<RoleManager<IdentityRole>>();
                     await RoleInitializer.InitializeAsync(userManager, rolesManager);
+                    await SeedData.Initialize(services);
                 }
                 catch (Exception ex)
                 {
